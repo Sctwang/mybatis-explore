@@ -16,7 +16,7 @@ public class User {
 
     private String password;
 
-    private String deptment;
+    private String department;
 
     private String phone;
 
@@ -54,11 +54,11 @@ public class User {
     }
 
     public String getDeptment() {
-        return deptment;
+        return department;
     }
 
-    public void setDeptment(String deptment) {
-        this.deptment = deptment;
+    public void setDeptment(String department) {
+        this.department = department;
     }
 
     public String getPhone() {
@@ -107,7 +107,7 @@ public class User {
             "id=" + id +
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
-            ", deptment='" + deptment + '\'' +
+            ", department='" + department + '\'' +
             ", phone='" + phone + '\'' +
             ", email='" + email + '\'' +
             ", status=" + status +

@@ -9,10 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * (User)表服务实现类
- */
-
 @Service("userService")
 public class UserServiceImpl implements UserService {
     @Resource

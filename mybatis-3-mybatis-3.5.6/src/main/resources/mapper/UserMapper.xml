@@ -23,7 +23,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
-        <result property="deptment" column="deptment" jdbcType="VARCHAR"/>
+        <result property="department" column="department" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
@@ -34,7 +34,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          id, username, password, deptment, phone, email, status, create_date, remark
+          id, username, password, department, phone, email, status, create_date, remark
         from test_mybatis.user
         where id = #{id}
     </select>
@@ -42,7 +42,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-          id, username, password, deptment, phone, email, status, create_date, remark
+          id, username, password, department, phone, email, status, create_date, remark
         from test_mybatis.user
         limit #{offset}, #{limit}
     </select>
@@ -50,7 +50,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserMap">
         select
-          id, username, password, deptment, phone, email, status, create_date, remark
+          id, username, password, department, phone, email, status, create_date, remark
         from test_mybatis.user
         <where>
             <if test="id != null">
@@ -62,8 +62,8 @@
             <if test="password != null and password != ''">
                 and password = #{password}
             </if>
-            <if test="deptment != null and deptment != ''">
-                and deptment = #{deptment}
+            <if test="department != null and department != ''">
+                and department = #{department}
             </if>
             <if test="phone != null and phone != ''">
                 and phone = #{phone}
@@ -85,8 +85,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into test_mybatis.user(username, password, deptment, phone, email, status, create_date, remark)
-        values (#{username}, #{password}, #{deptment}, #{phone}, #{email}, #{status}, #{createDate}, #{remark})
+        insert into test_mybatis.user(username, password, department, phone, email, status, create_date, remark)
+        values (#{username}, #{password}, #{department}, #{phone}, #{email}, #{status}, #{createDate}, #{remark})
     </insert>
 
     <!--通过主键修改数据-->
@@ -99,8 +99,8 @@
             <if test="password != null and password != ''">
                 password = #{password},
             </if>
-            <if test="deptment != null and deptment != ''">
-                deptment = #{deptment},
+            <if test="department != null and department != ''">
+                department = #{department},
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},

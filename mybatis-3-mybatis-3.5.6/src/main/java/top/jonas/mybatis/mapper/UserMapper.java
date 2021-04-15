@@ -6,12 +6,6 @@ import top.jonas.mybatis.entity.User;
 
 import java.util.List;
 
-/**
- * (User)表数据库访问层
- *
- * @author ganquanzhong
- * @since 2020-07-14 21:03:22
- */
 public interface UserMapper {
 
     /**

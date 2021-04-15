@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class XMLTest {
+public class XMLConfigBuilderTest {
 
     /**
      * 每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为核心的。

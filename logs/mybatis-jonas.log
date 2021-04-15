@@ -138,3 +138,20 @@ DEBUG main top.jonas.mybatis.mapper.UserMapper.queryAllByLimit - <==      Total:
 DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - ==>  Preparing: select * from user where id = ?
 DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - ==> Parameters: 1(Integer)
 DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - <==      Total: 1
+DEBUG main org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+DEBUG main org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+DEBUG main org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+DEBUG main org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+DEBUG main org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+DEBUG main org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+DEBUG main org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 331510866.
+DEBUG main org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@13c27452]
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryById - ==>  Preparing: select id, username, password, department, phone, email, status, create_date, remark from test_mybatis.user where id = ?
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryById - ==> Parameters: 1(Integer)
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryById - <==      Total: 1
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryAllByLimit - ==>  Preparing: select id, username, password, department, phone, email, status, create_date, remark from test_mybatis.user limit ?, ?
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryAllByLimit - ==> Parameters: 1(Integer), 100(Integer)
+DEBUG main top.jonas.mybatis.mapper.UserMapper.queryAllByLimit - <==      Total: 0
+DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - ==>  Preparing: select * from user where id = ?
+DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - ==> Parameters: 1(Integer)
+DEBUG main top.jonas.mybatis.mapper.UserMapper.selectByUid - <==      Total: 1

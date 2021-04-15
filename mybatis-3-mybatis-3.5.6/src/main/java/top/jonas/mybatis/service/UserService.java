@@ -4,9 +4,6 @@ import top.jonas.mybatis.entity.User;
 
 import java.util.List;
 
-/**
- * (User)表服务接口
- */
 public interface UserService {
 
     /**
