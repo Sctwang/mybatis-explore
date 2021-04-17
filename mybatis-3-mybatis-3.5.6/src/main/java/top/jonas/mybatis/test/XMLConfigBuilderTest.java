@@ -31,8 +31,11 @@ public class XMLConfigBuilderTest {
         InputStream inputStream;
         SqlSession sqlSession = null;
         try {
+            // 1.获取配置文件资源
             inputStream = Resources.getResourceAsStream(resource);
+            // 2.初始化mybatis，创建SqlSessionFactory类实例
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            // 3.创建session（默认是开启一级缓存的）
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             List<User> userList = userMapper.queryAll(new User());
