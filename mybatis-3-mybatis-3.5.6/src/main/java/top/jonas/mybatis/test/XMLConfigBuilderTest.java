@@ -36,6 +36,7 @@ public class XMLConfigBuilderTest {
             // 2.初始化mybatis，创建SqlSessionFactory类实例
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
             // 3.创建session（默认是开启一级缓存的）
+            // TODO 一级缓存和二级缓存详细区别
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             List<User> userList = userMapper.queryAll(new User());
