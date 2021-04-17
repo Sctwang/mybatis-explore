@@ -25,7 +25,15 @@ public class XMLConfigBuilderTest {
 
     /**
      * get resource from parameter
+     *
      * @param resource
+     *
+     * @see org.apache.ibatis.cache.CacheKey
+     *
+     * MyBatis 缓存见如下接口
+     * @see org.apache.ibatis.cache.Cache
+     * @see org.apache.ibatis.cache.impl.PerpetualCache
+     * @see org.apache.ibatis.cache.decorators.SynchronizedCache
      */
     private void getResource(String resource) {
         InputStream inputStream;
@@ -36,7 +44,14 @@ public class XMLConfigBuilderTest {
             // 2.初始化mybatis，创建SqlSessionFactory类实例
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
             // 3.创建session（默认是开启一级缓存的）
-            // TODO 一级缓存和二级缓存详细区别
+            /*
+            TODO 一级缓存和二级缓存的区别
+            MyBatis 一级缓存和二级缓存的区别
+            1.一级缓存默认开启，一级缓存的作用域为一个sqlSession；
+            执行相同的sql，第一次去库里查，会写入到缓存，第二次直接从缓存获取；
+            此版本的缓存放置在 HashMap 中，hashmap非线程安全，具体缓存实现类还有SynchronizedCache
+            2.
+             */
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             List<User> userList = userMapper.queryAll(new User());
