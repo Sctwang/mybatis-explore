@@ -22,6 +22,7 @@ import java.util.concurrent.locks.ReadWriteLock;
  * <p>
  * One instance of cache will be created for each namespace.
  * <p>
+ * 实现缓存接口的实现类，必须具有接收缓存id(String)的构造方法
  * The cache implementation must have a constructor that receives the cache id as an String parameter.
  * <p>
  * MyBatis will pass the namespace as id to the constructor.
