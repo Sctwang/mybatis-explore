@@ -3,7 +3,6 @@ package top.jonas.mybatis.test;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author wyz
@@ -26,7 +25,7 @@ public class LRUCache {
         }
     }
 
-    private Map<Integer, DLinkedNode> cache = new ConcurrentHashMap<>();
+    private Map<Integer, DLinkedNode> cache = new HashMap<>();
     private int size;
     private int capacity;
     private DLinkedNode head, tail;
