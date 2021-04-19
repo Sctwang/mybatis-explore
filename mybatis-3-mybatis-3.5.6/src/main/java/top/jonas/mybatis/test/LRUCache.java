@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author wyz
+ * @author Jonas
  * @date 2021/4/18 14:46
  */
 public class LRUCache {
