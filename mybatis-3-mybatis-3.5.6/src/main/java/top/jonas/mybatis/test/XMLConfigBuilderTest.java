@@ -1,16 +1,17 @@
 package top.jonas.mybatis.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import top.jonas.mybatis.entity.User;
-import top.jonas.mybatis.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import top.jonas.mybatis.entity.User;
+import top.jonas.mybatis.mapper.UserMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,6 +54,8 @@ public class XMLConfigBuilderTest {
              */
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            // test add a user
+            userMapper.insert(addUser());
             List<User> userList = userMapper.queryAll(new User());
             userList.forEach(
                 user -> {
@@ -65,5 +68,18 @@ public class XMLConfigBuilderTest {
         } finally {
             Objects.requireNonNull(sqlSession).close();
         }
+    }
+
+    private User addUser() {
+        User user = new User();
+        user.setUsername("testUsername");
+        user.setPassword("testUsername-password");
+        user.setDeptment("testUsername-deptment");
+        user.setEmail("testUsername-email");
+        user.setPhone("13188888888");
+        user.setStatus(1);
+        user.setRemark("testUsername-remark");
+        user.setCreateDate(new Date());
+        return user;
     }
 }

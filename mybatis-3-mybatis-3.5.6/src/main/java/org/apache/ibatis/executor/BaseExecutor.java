@@ -46,6 +46,8 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * @author Clinton Begin
+ *
+ * 一级缓存实现类
  */
 public abstract class BaseExecutor implements Executor {
 
@@ -118,6 +120,9 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
+    /*
+    isRollBack 参数表示是否执行缓存中的sql语句，false表示执行，true表示不执行
+     */
     public List<BatchResult> flushStatements() throws SQLException {
         return flushStatements(false);
     }
@@ -242,14 +247,29 @@ public abstract class BaseExecutor implements Executor {
         return localCache.getObject(key) != null;
     }
 
+    /**
+     * 事务的提交和回滚
+     *
+     * @param required
+     * @throws SQLException
+     */
     @Override
     public void commit(boolean required) throws SQLException {
         if (closed) {
             throw new ExecutorException("Cannot commit, transaction is already closed");
         }
+        /*
+         清除本地缓存，查看其方法可知会清理两部分
+         1.localCache - 本地缓存
+         2.localOutputParameterCache - 本地输出类型参数缓存
+         */
         clearLocalCache();
+        /*
+        刷新批处理语句，执行缓存中还没执行的SQL语句
+         */
         flushStatements();
         if (required) {
+            // 提交事务
             transaction.commit();
         }
     }
