@@ -3,7 +3,7 @@ package top.jonas.mybatis.entity;
 import java.util.Date;
 
 /**
- * @author wyz
+ * @author Jonas
  * @date 2021/4/15 21:14
  */
 public class User {

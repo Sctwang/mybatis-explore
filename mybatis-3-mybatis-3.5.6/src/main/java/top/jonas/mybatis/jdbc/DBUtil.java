@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author wyz
+ * @author Jonas
  * @date 2021/4/15 21:18
  */
 public class DBUtil {
