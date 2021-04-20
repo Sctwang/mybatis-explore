@@ -49,6 +49,15 @@ public class PerpetualCache implements Cache {
 
     @Override
     public void putObject(Object key, Object value) {
+        /*
+        cache为HashMap结构，key与value均为Object
+        此处记录key与value的示例:
+        key:[1830672142:2154394881:top.jonas.mybatis.mapper.UserMapper.queryAll:0:2147483647:select
+          id, username, password, department, phone, email, status, create_date, remark
+        from test_mybatis.user:development]
+
+        value:EXECUTION_PLACEHOLDER
+         */
         cache.put(key, value);
     }
 
