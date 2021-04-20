@@ -5,9 +5,13 @@
 
     <!--mybatis的配置-->
     <settings>
+        <!--cacheEnabled 表示二级缓存的开关，true表示打开二级缓存-->
         <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="useGeneratedKeys" value="true"/>
+        <!--这里可以更改一级缓存的范围
+        <setting name="localCacheScope" value="STATEMENT"/>
+        -->
     </settings>
 
     <typeAliases>

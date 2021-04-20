@@ -50,7 +50,8 @@ public class XMLConfigBuilderTest {
             MyBatis 一级缓存和二级缓存的区别
             1.一级缓存默认开启，一级缓存的作用域为一个sqlSession；
             执行相同的sql，第一次去库里查，会写入到缓存，第二次直接从缓存获取；
-            此版本的缓存放置在 HashMap 中，hashmap非线程安全，具体缓存实现类还有SynchronizedCache
+            此版本的缓存放置在 HashMap 中，hashmap非线程安全，具体缓存实现类还有SynchronizedCache;
+            每创建一个 sqlSession，就表示打开一次数据库会话
              */
             sqlSession = sqlSessionFactory.openSession();
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);

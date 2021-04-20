@@ -31,6 +31,17 @@
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <!--
+    在mapper中配置了这两个标签中的任何一个，表示打开了二级缓存，具体区别如下：
+    1.<cache>标签表示此mapper.xml 打开了二级缓存，
+    在解析此mapper.xml文件的时候，对指定 namespace 创建对应的Cache对象作为二级缓存，默认为PerpetualCache对象
+    此处的namespace为<mapper> 标签中的 namespace.
+    2.<cache-ref namespace=""/> 表示对标签中指定 namespace 值引用的 Cache 对象作为其二级缓存.
+    3.<select> 查询标签中也可以指定是否打开二级缓存，例如：<select id="queryById" resultMap="UserMap" useCache="true">
+    <select>标签中的 useCache 默认值为 true, 即默认打开二级缓存，默认会把查询结果放到二级缓存
+    <cache></cache>
+    <cache-ref namespace=""/>
+    -->
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
