@@ -57,7 +57,7 @@ public abstract class BaseExecutor implements Executor {
     protected Executor wrapper;
 
     protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
-    // 本地缓存为 PerpetualCache 类型
+    // 本地缓存为 PerpetualCache 类型, PerpetualCache 实现了 Cache 接口
     protected PerpetualCache localCache;
     protected PerpetualCache localOutputParameterCache;
     protected Configuration configuration;
