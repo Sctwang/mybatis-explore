@@ -19,53 +19,57 @@ import org.apache.ibatis.cache.Cache;
 
 /**
  * @author Clinton Begin
+ * MyBatis 的缓存使用 HashMap 实现，但 HashMap 非线程安全
+ * 这个类就是解决此问题的，其中使用了 synchronized 来保证线程安全
+ * 下面这个类使用了这个对象
+ * @see org.apache.ibatis.mapping.CacheBuilder
  */
 public class SynchronizedCache implements Cache {
 
-  private final Cache delegate;
+    private final Cache delegate;
 
-  public SynchronizedCache(Cache delegate) {
-    this.delegate = delegate;
-  }
+    public SynchronizedCache(Cache delegate) {
+        this.delegate = delegate;
+    }
 
-  @Override
-  public String getId() {
-    return delegate.getId();
-  }
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
 
-  @Override
-  public synchronized int getSize() {
-    return delegate.getSize();
-  }
+    @Override
+    public synchronized int getSize() {
+        return delegate.getSize();
+    }
 
-  @Override
-  public synchronized void putObject(Object key, Object object) {
-    delegate.putObject(key, object);
-  }
+    @Override
+    public synchronized void putObject(Object key, Object object) {
+        delegate.putObject(key, object);
+    }
 
-  @Override
-  public synchronized Object getObject(Object key) {
-    return delegate.getObject(key);
-  }
+    @Override
+    public synchronized Object getObject(Object key) {
+        return delegate.getObject(key);
+    }
 
-  @Override
-  public synchronized Object removeObject(Object key) {
-    return delegate.removeObject(key);
-  }
+    @Override
+    public synchronized Object removeObject(Object key) {
+        return delegate.removeObject(key);
+    }
 
-  @Override
-  public synchronized void clear() {
-    delegate.clear();
-  }
+    @Override
+    public synchronized void clear() {
+        delegate.clear();
+    }
 
-  @Override
-  public int hashCode() {
-    return delegate.hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return delegate.hashCode();
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    return delegate.equals(obj);
-  }
+    @Override
+    public boolean equals(Object obj) {
+        return delegate.equals(obj);
+    }
 
 }
