@@ -21,7 +21,9 @@ public class XMLConfigBuilderTest {
 
     public static void main(String[] args) throws IOException {
         String resource = "config/mybatis-config.xml";
-        new XMLConfigBuilderTest().getResource(resource);
+        //new XMLConfigBuilderTest().getUsers1(resource);
+        //new XMLConfigBuilderTest().getUsers2(resource);
+        new XMLConfigBuilderTest().getUserWithCache(resource);
     }
 
     /**
@@ -36,7 +38,7 @@ public class XMLConfigBuilderTest {
      * @see org.apache.ibatis.cache.impl.PerpetualCache
      * @see org.apache.ibatis.cache.decorators.SynchronizedCache
      */
-    private void getResource(String resource) {
+    private void getUsers1(String resource) {
         InputStream inputStream;
         SqlSession sqlSession = null;
         try {
@@ -60,7 +62,7 @@ public class XMLConfigBuilderTest {
             List<User> userList = userMapper.queryAll(new User());
             userList.forEach(
                 user -> {
-                    logger.info("user's info:{}", user.toString());
+                    logger.debug("user's info:{}", user.toString());
                 }
             );
         } catch (IOException e) {
@@ -68,6 +70,66 @@ public class XMLConfigBuilderTest {
             e.printStackTrace();
         } finally {
             Objects.requireNonNull(sqlSession).close();
+        }
+    }
+
+
+    private void getUsers2(String resource) {
+        SqlSessionFactory sqlSessionFactory;
+        SqlSession sqlSession = null;
+        try {
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            sqlSession = sqlSessionFactory.openSession();
+            String nameSpace = "top.jonas.mybatis.mapper.UserMapper" + ".";
+            logger.debug("query all users");
+            List<User> userList = sqlSession.selectList(nameSpace + "queryAll");
+            userList.forEach(user -> {
+                logger.debug("user's info:{}", user.toString());
+            });
+            logger.debug("---------------------");
+            int id = 1;
+            logger.debug("query user by id: " + id);
+            User user = sqlSession.selectOne(nameSpace + "queryById", id);
+            logger.debug("user: " + user);
+            logger.debug("---------------------");
+        } catch (IOException e) {
+            logger.debug("Can't get resource as stream:{}", e.toString());
+            e.printStackTrace();
+        } finally {
+            Objects.requireNonNull(sqlSession).close();
+        }
+    }
+
+    private void getUserWithCache(String resource) {
+        SqlSessionFactory sqlSessionFactory;
+        SqlSession sqlSession = null;
+        try {
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            sqlSession = sqlSessionFactory.openSession();
+            String nameSpace = "top.jonas.mybatis.mapper.UserMapper" + ".";
+            List<User> userList = sqlSession.selectList(nameSpace + "queryAll");
+            userList.forEach(user -> {
+                logger.debug("get user's info:{}", user.toString());
+            });
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            // 在使用缓存之前，对数据库做修改（此处做插入操作），缓存失效，会重新执行sql语句，查询数据库
+            //sqlSession.getMapper(UserMapper.class).insert(addUser());
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            List<User> userListWithCache = sqlSession.selectList(nameSpace + "queryAll");
+            userList.forEach(user -> {
+                logger.debug("get user's info with cache:{}", userListWithCache.toString());
+            });
+        } catch (IOException e) {
+            logger.debug("Can't get resource as stream:{}", e.toString());
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
         }
     }
 

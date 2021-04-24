@@ -207,10 +207,12 @@ public abstract class BaseExecutor implements Executor {
      */
     @Override
     public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
+        // TODO createCacheKey
         if (closed) {
             throw new ExecutorException("Executor was closed.");
         }
         CacheKey cacheKey = new CacheKey();
+        // e.g: ms.getId() -> top.jonas.mybatis.mapper.UserMapper.queryAll
         cacheKey.update(ms.getId());
         cacheKey.update(rowBounds.getOffset());
         cacheKey.update(rowBounds.getLimit());
@@ -350,12 +352,15 @@ public abstract class BaseExecutor implements Executor {
 
     private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
         List<E> list;
+        // local为PerpetualCache(HashMap)类型，这里put要缓存的key
         localCache.putObject(key, EXECUTION_PLACEHOLDER);
         try {
             list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
         } finally {
+            // finally最终都会执行，移除掉当前的键值对（key为要缓存的：cacheKey；value为占位符，不是具体的值，后面把查出来的值作为value put进去）
             localCache.removeObject(key);
         }
+        // 把真正的key与value缓存进去
         localCache.putObject(key, list);
         if (ms.getStatementType() == StatementType.CALLABLE) {
             localOutputParameterCache.putObject(key, parameter);

@@ -87,13 +87,26 @@ public class CachingExecutor implements Executor {
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
         BoundSql boundSql = ms.getBoundSql(parameterObject);
+        // 这里已经拿到了 sql 语句
+        /*
+        select
+          id, username, password, department, phone, email, status, create_date, remark
+        from test_mybatis.user
+         */
+        // 创建缓存 key,缓存结构为 HashMap
         CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
+        /*
+        e.g: key -> 1830672142:2154394881:top.jonas.mybatis.mapper.UserMapper.queryAll:0:2147483647:select
+          id, username, password, department, phone, email, status, create_date, remark
+        from test_mybatis.user:development
+         */
         return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
     }
 
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)
             throws SQLException {
+        // TODO ?: <执行的时候，先获取缓存；第一次获取时 cache = null>
         Cache cache = ms.getCache();
         if (cache != null) {
             flushCacheIfRequired(ms);

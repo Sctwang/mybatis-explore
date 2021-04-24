@@ -56,6 +56,7 @@ public class CacheKey implements Cloneable, Serializable {
     private List<Object> updateList;
 
     public CacheKey() {
+        // this.hashcode = 17
         this.hashcode = DEFAULT_HASHCODE;
         this.multiplier = DEFAULT_MULTIPLIER;
         this.count = 0;
@@ -71,6 +72,10 @@ public class CacheKey implements Cloneable, Serializable {
         return updateList.size();
     }
 
+    /**
+     * 动态地向组合中追加对象（内部会通过迭代更新 key 值）
+     * @param object
+     */
     public void update(Object object) {
         int baseHashCode = object == null ? 1 : ArrayUtil.hashCode(object);
 
